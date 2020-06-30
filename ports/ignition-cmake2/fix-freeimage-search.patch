@@ -1,0 +1,31 @@
+diff --git a/cmake/FindFreeImage.cmake b/cmake/FindFreeImage.cmake
+index 673e09d7eda6..9cb55b337697 100644
+--- a/cmake/FindFreeImage.cmake
++++ b/cmake/FindFreeImage.cmake
+@@ -23,6 +23,8 @@ set(minor_version ${FreeImage_FIND_VERSION_MINOR})
+ # Set the full version number
+ set(full_version ${major_version}.${minor_version})
+ 
++set(FreeImage_LIBRARY_NAMES freeimage freeimageLib FreeImage FreeImageLib)
++
+ if (NOT WIN32)
+   include(IgnPkgConfig)
+   ign_pkg_config_library_entry(FreeImage freeimage)
+@@ -73,7 +75,7 @@ if (NOT WIN32)
+     endif(NOT FreeImage_INCLUDE_DIRS)
+     mark_as_advanced(FreeImage_INCLUDE_DIRS)
+ 
+-    find_library(FreeImage_LIBRARIES freeimage)
++    find_library(FreeImage_LIBRARIES freeimage NAMES ${FreeImage_LIBRARY_NAMES})
+     if(FreeImage_LIBRARIES)
+       set(FreeImage_FOUND true)
+     else()
+@@ -124,7 +126,7 @@ else()
+   mark_as_advanced(FreeImage_INCLUDE_DIRS)
+ 
+   # 2. look for FreeImage libraries
+-  find_library(FreeImage_LIBRARIES FreeImage)
++  find_library(FreeImage_LIBRARIES FreeImage NAMES ${FreeImage_LIBRARY_NAMES})
+   mark_as_advanced(FreeImage_LIBRARIES)
+ 
+   if (FreeImage_LIBRARIES)

@@ -1,0 +1,15 @@
+diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
+index 965f1ecf7487..41fee8f5e6e6 100644
+--- a/cmake/SearchForStuff.cmake
++++ b/cmake/SearchForStuff.cmake
+@@ -65,8 +65,8 @@ if (NOT DEFINED USE_INTERNAL_URDF OR NOT USE_INTERNAL_URDF)
+     endif()
+   else()
+     # what am I doing here? pkg-config and cmake
+-    set(URDF_INCLUDE_DIRS ${URDF_INCLUDEDIR})
+-    set(URDF_LIBRARY_DIRS ${URDF_LIBDIR})
++    set(URDF_INCLUDE_DIRS ${urdfdom_INCLUDE_DIRS})
++    set(URDF_LIBRARY_DIRS ${urdfdom_LIBRARIES})
+   endif()
+ endif()
+ 

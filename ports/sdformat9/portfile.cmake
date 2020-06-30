@@ -1,4 +1,4 @@
-vcpkg_fail_port_install(ON_TARGET "linux" "uwp")
+vcpkg_fail_port_install(ON_TARGET "uwp")
 
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
@@ -9,6 +9,7 @@ vcpkg_from_github(
     PATCHES
         respect-build-testing.patch # Backport of https://github.com/osrf/sdformat/pull/269
         fix-dependency-urdfdom.patch
+        fix-urdf-import.patch
 )
 
 # Ruby is required by the sdformat build process

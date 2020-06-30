@@ -1,0 +1,4 @@
+Source: gazebo
+Version: 11.0.0-1
+Build-Depends: ffmpeg, freeimage, gts, sdformat9, ignition-msgs5, ignition-transport8, ignition-math6, tinyxml2, tinyxml, boost, ogre, qt5-base, qwt, tbb
+Description: robotics application

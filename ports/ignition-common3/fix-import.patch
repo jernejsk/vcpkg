@@ -1,0 +1,34 @@
+diff --git a/av/src/CMakeLists.txt b/av/src/CMakeLists.txt
+index 471e8e90b8aa..8a389084a206 100644
+--- a/av/src/CMakeLists.txt
++++ b/av/src/CMakeLists.txt
+@@ -8,11 +8,11 @@ ign_add_component(av SOURCES ${sources} GET_TARGET_NAME av_target)
+ 
+ target_link_libraries(${av_target}
+   PUBLIC
+-    SWSCALE::SWSCALE
+-    AVDEVICE::AVDEVICE
+-    AVFORMAT::AVFORMAT
+-    AVCODEC::AVCODEC
+-    AVUTIL::AVUTIL)
++    ${SWSCALE_TARGET}
++    ${AVDEVICE_TARGET}
++    ${AVFORMAT_TARGET}
++    ${AVCODEC_TARGET}
++    ${AVUTIL_TARGET})
+ 
+ ign_build_tests(TYPE UNIT SOURCES ${gtest_sources}
+   LIB_DEPS ${av_target})
+diff --git a/graphics/src/CMakeLists.txt b/graphics/src/CMakeLists.txt
+index 000a0ce980b0..79bcca3d2a95 100644
+--- a/graphics/src/CMakeLists.txt
++++ b/graphics/src/CMakeLists.txt
+@@ -16,7 +16,7 @@ target_link_libraries(${graphics_target}
+   PUBLIC
+     ignition-math${IGN_MATH_VER}::ignition-math${IGN_MATH_VER}
+   PRIVATE
+-    GTS::GTS
++    ${GTS_TARGET}
+     FreeImage::FreeImage)
+ 
+ ign_build_tests(TYPE UNIT SOURCES ${gtest_sources}

@@ -33,12 +33,16 @@ vcpkg_copy_pdbs()
 
 vcpkg_fixup_cmake_targets(CONFIG_PATH lib/cmake TARGET_PATH share/libzip)
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/share)
- 
+
 # Remove include directories from lib
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/lib/libzip ${CURRENT_PACKAGES_DIR}/debug/lib/libzip)
 
 # Remove debug include
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/include)
+
+# broken .pc files
+file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/lib/pkgconfig
+                    ${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig)
 
 # Copy copright information
 file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/${PORT} RENAME copyright)

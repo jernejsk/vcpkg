@@ -1,0 +1,70 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4678692f1a98..c21cfabc0cb0 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -77,7 +77,7 @@ if (DOC_ONLY)
+   return()
+ endif()
+ 
+-enable_testing()
++#enable_testing()
+ 
+ # Use GNUInstallDirst to get canonical paths
+ include(GNUInstallDirs)
+diff --git a/cmake/FindFreeimage.cmake b/cmake/FindFreeimage.cmake
+index a989ec7fdba8..5696bfe9f390 100644
+--- a/cmake/FindFreeimage.cmake
++++ b/cmake/FindFreeimage.cmake
+@@ -1,6 +1,9 @@
+ include (FindPkgConfig)
+ include (${gazebo_cmake_dir}/GazeboUtils.cmake)
+ 
++set(FreeImage_LIBRARY_NAMES freeimage freeimageLib FreeImage FreeImageLib)
++set(FreeImage_LIBRARY_NAMES_DBG freeimaged freeimageLibd FreeImaged FreeImageLibd)
++
+ ########################################
+ # Find packages
+ if (PKG_CONFIG_FOUND)
+@@ -33,15 +36,15 @@ if (NOT freeimage_FOUND)
+     endif (NOT FREEIMAGE_RUNS)
+   endif (NOT freeimage_INCLUDE_DIRS)
+ 
+-  if (WIN32)
++  if (!WIN32)
+     if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+-      find_library(freeimage_LIBRARIES FreeImaged)
++      find_library(freeimage_LIBRARIES FreeImaged  NAMES ${FreeImage_LIBRARY_NAMES_DBG})
+     else()
+-      find_library(freeimage_LIBRARIES FreeImage)
++      find_library(freeimage_LIBRARIES FreeImage NAMES ${FreeImage_LIBRARY_NAMES})
+     endif()
+-  else(WIN32)
+-    find_library(freeimage_LIBRARIES freeimage)
+-  endif(WIN32)
++  else(!WIN32)
++    find_library(freeimage_LIBRARIES freeimage NAMES ${FreeImage_LIBRARY_NAMES})
++  endif(!WIN32)
+   if (NOT freeimage_LIBRARIES)
+     message (STATUS "  Looking for libfreeimage - not found")
+     BUILD_ERROR("Missing: Unable to find libfreeimage")
+diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
+index a2663eec598b..51b2be81d453 100644
+--- a/cmake/SearchForStuff.cmake
++++ b/cmake/SearchForStuff.cmake
+@@ -336,14 +336,14 @@ if (PKG_CONFIG_FOUND)
+   if (PKG_CONFIG_EXECUTABLE AND NOT DEFINED OGRE_VERSION)
+     execute_process(COMMAND ${PKG_CONFIG_EXECUTABLE} --modversion OGRE
+                     OUTPUT_VARIABLE OGRE_VERSION)
+-    string(REPLACE "\n" "" OGRE_VERSION ${OGRE_VERSION})
++    string(REPLACE "\n" "" OGRE_VERSION "${OGRE_VERSION}")
+ 
+     string (REGEX REPLACE "^([0-9]+).*" "\\1"
+       OGRE_MAJOR_VERSION "${OGRE_VERSION}")
+     string (REGEX REPLACE "^[0-9]+\\.([0-9]+).*" "\\1"
+       OGRE_MINOR_VERSION "${OGRE_VERSION}")
+     string (REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*" "\\1"
+-      OGRE_PATCH_VERSION ${OGRE_VERSION})
++      OGRE_PATCH_VERSION "${OGRE_VERSION}")
+ 
+     set(OGRE_VERSION
+       ${OGRE_MAJOR_VERSION}.${OGRE_MINOR_VERSION}.${OGRE_PATCH_VERSION})

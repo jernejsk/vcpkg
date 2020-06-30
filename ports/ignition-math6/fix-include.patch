@@ -1,0 +1,12 @@
+diff --git a/src/RollingMean.cc b/src/RollingMean.cc
+index 8b56bbc7b901..78a9a0cf01b5 100644
+--- a/src/RollingMean.cc
++++ b/src/RollingMean.cc
+@@ -17,6 +17,7 @@
+ 
+ #include <numeric>
+ #include <deque>
++#include <limits>
+ #include "ignition/math/RollingMean.hh"
+ 
+ using namespace ignition::math;
